@@ -49,16 +49,27 @@ export const Contact = () => {
                 body: JSON.stringify(data),
             });
 
+            // Validar que la respuesta sea JSON (si es HTML, significa que falló el enrutamiento de Vercel)
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                console.error("Respuesta no válida de la API (posible HTML):", response.status, response.statusText);
+                throw new Error("Error de conexión: El servidor devolvió una respuesta inesperada (HTML).");
+            }
+
+            const result = await response.json();
+
             if (!response.ok) {
-                throw new Error('Error al enviar el mensaje');
+                // Mostrar el error exacto que devuelve la API (ej. "Sender prohibited")
+                throw new Error(result.error || result.message || 'Error al enviar el mensaje');
             }
 
             setIsSuccess(true);
             reset();
             setTimeout(() => setIsSuccess(false), 5000);
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            alert(t("contact.err_sending", { defaultValue: "Hubo un error enviando el mensaje. Intente de nuevo." }));
+            // Alertar con el mensaje técnico para facilitar la depuración
+            alert(`Hubo un error enviando el mensaje: ${error.message || "Intente de nuevo."}`);
         } finally {
             setIsSubmitting(false);
         }
