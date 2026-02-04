@@ -40,13 +40,28 @@ export const Contact = () => {
 
     const onSubmit = async (data: FormValues) => {
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        console.log(data);
-        setIsSubmitting(false);
-        setIsSuccess(true);
-        reset();
-        setTimeout(() => setIsSuccess(false), 5000);
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al enviar el mensaje');
+            }
+
+            setIsSuccess(true);
+            reset();
+            setTimeout(() => setIsSuccess(false), 5000);
+        } catch (error) {
+            console.error(error);
+            alert(t("contact.err_sending", { defaultValue: "Hubo un error enviando el mensaje. Intente de nuevo." }));
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
