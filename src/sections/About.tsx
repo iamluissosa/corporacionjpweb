@@ -1,6 +1,9 @@
 import { CheckCircle2, MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const About = () => {
+    const { t } = useTranslation();
+
     return (
         <section id="about" className="py-24 bg-slate-50">
             <div className="container mx-auto px-4 md:px-6">
@@ -20,8 +23,8 @@ export const About = () => {
                                     <MapPin className="text-blue-700 w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Sede Principal</p>
-                                    <p className="font-bold text-slate-900 text-lg">Montalbán, Carabobo</p>
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t("about.location_title")}</p>
+                                    <p className="font-bold text-slate-900 text-lg">{t("about.location")}</p>
                                 </div>
                             </div>
                         </div>
@@ -32,22 +35,22 @@ export const About = () => {
                     <div className="order-1 md:order-2 space-y-8">
                         <div>
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                                Ingeniería experta para la industria venezolana
+                                {t("about.title")}
                             </h2>
                             <p className="text-lg text-slate-600 leading-relaxed">
-                                Somos un aliado estratégico dedicado a potenciar la productividad industrial. Con sede en el corazón industrial de Carabobo, ofrecemos soluciones técnicas de alto nivel adaptadas a las exigencias del mercado nacional.
+                                {t("about.description")}
                             </p>
                         </div>
 
                         <div className="grid sm:grid-cols-1 gap-4">
                             {[
-                                "Atención prioritaria a paradas de planta",
-                                "Cumplimiento estricto de normativa ISO",
-                                "Gestión integral de proyectos 'Llave en Mano'",
-                                "Equipo técnico altamente cualificado"
+                                t("about.check1"),
+                                t("about.check2"),
+                                t("about.check3"),
+                                t("about.check4")
                             ].map((item, i) => (
                                 <div key={i} className="flex items-start gap-3 bg-white p-4 rounded-lg border border-slate-100 shadow-sm">
-                                    <CheckCircle2 className="text-secondary w-5 h-5 flex-shrink-0 mt-0.5" />
+                                    <CheckCircle2 className="text-green-600 w-5 h-5 flex-shrink-0 mt-0.5" />
                                     <span className="text-slate-700 font-medium">{item}</span>
                                 </div>
                             ))}

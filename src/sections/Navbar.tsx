@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
 
 export const Navbar = () => {
+    const { t } = useTranslation();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -14,10 +17,10 @@ export const Navbar = () => {
     }, []);
 
     const navLinks = [
-        { name: "Inicio", href: "#hero" },
-        { name: "Servicios", href: "#services" },
-        { name: "Aliados", href: "#allies" },
-        { name: "Proyectos", href: "#projects" },
+        { name: t("navbar.home"), href: "#hero" },
+        { name: t("navbar.services"), href: "#services" },
+        { name: t("navbar.allies"), href: "#allies" },
+        // { name: t("navbar.projects"), href: "#projects" },
     ];
 
     return (
@@ -25,8 +28,13 @@ export const Navbar = () => {
             <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
                 {/* Logo */}
                 <a href="#" className="flex items-center gap-2 group">
+                    <img
+                        src={t("logo")}
+                        alt={t("brand_name")}
+                        className="h-10 w-auto object-contain"
+                    />
                     <span className="text-2xl font-bold tracking-tighter text-white group-hover:opacity-80 transition-opacity">
-                        Corporacion <span className="text-primary">JP</span>
+                        {t("brand_prefix")} <span className="text-primary">{t("brand_suffix")}</span>
                     </span>
                 </a>
 
@@ -37,20 +45,26 @@ export const Navbar = () => {
                             {link.name}
                         </a>
                     ))}
+                    <div className="ml-4">
+                        <LanguageSwitcher />
+                    </div>
                 </nav>
 
                 {/* CTA Desktop */}
                 <div className="hidden md:flex items-center gap-4">
                     <Button variant="secondary" className="gap-2 font-bold hover:scale-105 transition-transform shadow-lg shadow-orange-600/20">
                         <Phone className="w-4 h-4" />
-                        Contacto 24/7
+                        {t("navbar.contact")}
                     </Button>
                 </div>
 
                 {/* Mobile Toggle */}
-                <button className="md:hidden text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                    {mobileMenuOpen ? <X /> : <Menu />}
-                </button>
+                <div className="flex md:hidden items-center gap-4">
+                    <LanguageSwitcher />
+                    <button className="text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                        {mobileMenuOpen ? <X /> : <Menu />}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Menu */}
@@ -74,7 +88,7 @@ export const Navbar = () => {
                                 </a>
                             ))}
                             <Button variant="secondary" className="w-full gap-2 mt-2 h-12 text-lg">
-                                <Phone className="w-4 h-4" /> Contacto 24/7
+                                <Phone className="w-4 h-4" /> {t("navbar.contact")}
                             </Button>
                         </nav>
                     </motion.div>

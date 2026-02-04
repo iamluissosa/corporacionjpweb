@@ -9,22 +9,30 @@ import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { cn } from "../lib/utils";
-
-const formSchema = z.object({
-    name: z.string().min(2, "El nombre es requerido"),
-    company: z.string().min(2, "La empresa es requerida"),
-    email: z.string().email("Email inválido"),
-    phone: z.string().min(10, "Teléfono inválido"),
-    service: z.string().min(1, "Seleccione un servicio"),
-    urgency: z.string().min(1, "Seleccione la urgencia"),
-    message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { useTranslation } from "react-i18next";
 
 export const Contact = () => {
+    const { t } = useTranslation();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+
+    // Schema needs to be re-created or use translation keys if we want validation messages translated dynamically.
+    // For simplicity, we keep validation messages static or we can inject them if needed. 
+    // Here I will use hardcoded strings for validation for now or use t() inside if I move schema inside component (not best practice for performance but simple)
+    // To do it properly, we should use a function to generate schema or use t inside the schema definition if it's inside the component render or use a hook.
+    // Let's put it inside for simplicity of translation access.
+
+    const formSchema = z.object({
+        name: z.string().min(2, t("contact.err_name")),
+        company: z.string().min(2, t("contact.err_company")),
+        email: z.string().email(t("contact.err_email")),
+        phone: z.string().min(10, t("contact.err_phone")),
+        service: z.string().min(1, t("contact.err_service")),
+        urgency: z.string().min(1, t("contact.err_urgency")),
+        message: z.string().min(10, t("contact.err_msg_short")),
+    });
+
+    type FormValues = z.infer<typeof formSchema>;
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
         resolver: zodResolver(formSchema)
@@ -49,10 +57,10 @@ export const Contact = () => {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-8">
                         <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-                            ¿Listo para optimizar su <span className="text-secondary">operación industrial?</span>
+                            {t("contact.title_start")} <span className="text-secondary">{t("contact.title_highlight")}</span>
                         </h2>
                         <p className="text-lg text-slate-400">
-                            Contáctenos hoy mismo para una evaluación técnica sin compromiso. Nuestro equipo de ingenieros está listo para diseñar la solución que su planta necesita.
+                            {t("contact.description")}
                         </p>
 
                         <div className="space-y-8 pt-4">
@@ -61,7 +69,7 @@ export const Contact = () => {
                                     <Phone className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">Llámenos directamente</p>
+                                    <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">{t("contact.call_label")}</p>
                                     <p className="text-2xl font-bold font-mono tracking-tight">+58 424-435-5134 <br /> +58 414-407-6726</p>
                                 </div>
                             </div>
@@ -71,7 +79,7 @@ export const Contact = () => {
                                     <Mail className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">Envíenos un correo</p>
+                                    <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">{t("contact.email_label")}</p>
                                     <p className="text-2xl font-bold tracking-tight">info@corpjp.com</p>
                                 </div>
                             </div>
@@ -81,7 +89,7 @@ export const Contact = () => {
                                     <MapPin className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">Visítenos</p>
+                                    <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">{t("contact.visit_label")}</p>
                                     <p className="text-lg font-medium text-slate-200">Av. Miranda, Montalbán 2042, Carabobo.</p>
                                 </div>
                             </div>
@@ -90,39 +98,39 @@ export const Contact = () => {
 
                     <Card className="bg-white/95 backdrop-blur shadow-2xl border-0 ring-1 ring-white/20">
                         <CardHeader className="pb-4">
-                            <CardTitle className="text-2xl text-slate-900">Solicitar Cotización</CardTitle>
-                            <CardDescription>Complete el formulario y le responderemos en menos de 24h.</CardDescription>
+                            <CardTitle className="text-2xl text-slate-900">{t("contact.form_title")}</CardTitle>
+                            <CardDescription>{t("contact.form_desc")}</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="name">Nombre Completo</Label>
-                                        <Input id="name" placeholder="Juan Pérez" {...register("name")} className={errors.name ? "border-red-500 focus-visible:ring-red-500" : ""} />
+                                        <Label htmlFor="name">{t("contact.label_name")}</Label>
+                                        <Input id="name" placeholder={t("contact.ph_name")} {...register("name")} className={errors.name ? "border-red-500 focus-visible:ring-red-500" : ""} />
                                         {errors.name && <p className="text-red-500 text-xs font-medium">{errors.name.message}</p>}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="company">Empresa</Label>
-                                        <Input id="company" placeholder="Nombre de su empresa" {...register("company")} className={errors.company ? "border-red-500 focus-visible:ring-red-500" : ""} />
+                                        <Label htmlFor="company">{t("contact.label_company")}</Label>
+                                        <Input id="company" placeholder={t("contact.ph_company")} {...register("company")} className={errors.company ? "border-red-500 focus-visible:ring-red-500" : ""} />
                                         {errors.company && <p className="text-red-500 text-xs font-medium">{errors.company.message}</p>}
                                     </div>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="email">Email Corporativo</Label>
-                                        <Input id="email" type="email" placeholder="juan@empresa.com" {...register("email")} className={errors.email ? "border-red-500 focus-visible:ring-red-500" : ""} />
+                                        <Label htmlFor="email">{t("contact.label_email")}</Label>
+                                        <Input id="email" type="email" placeholder={t("contact.ph_email")} {...register("email")} className={errors.email ? "border-red-500 focus-visible:ring-red-500" : ""} />
                                         {errors.email && <p className="text-red-500 text-xs font-medium">{errors.email.message}</p>}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="phone">Teléfono</Label>
-                                        <Input id="phone" placeholder="+58 412 1234567" {...register("phone")} className={errors.phone ? "border-red-500 focus-visible:ring-red-500" : ""} />
+                                        <Label htmlFor="phone">{t("contact.label_phone")}</Label>
+                                        <Input id="phone" placeholder={t("contact.ph_phone")} {...register("phone")} className={errors.phone ? "border-red-500 focus-visible:ring-red-500" : ""} />
                                         {errors.phone && <p className="text-red-500 text-xs font-medium">{errors.phone.message}</p>}
                                     </div>
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="service">Área de Interés</Label>
+                                        <Label htmlFor="service">{t("contact.label_service")}</Label>
                                         <div className="relative">
                                             <select
                                                 id="service"
@@ -132,18 +140,18 @@ export const Contact = () => {
                                                 )}
                                                 {...register("service")}
                                             >
-                                                <option value="">Seleccione...</option>
-                                                <option value="automatizacion">Automatización & Control</option>
-                                                <option value="mantenimiento">Mantenimiento Industrial</option>
-                                                <option value="civil">Obras Civiles</option>
-                                                <option value="aguas">Aguas & Servicios</option>
-                                                <option value="otros">Otros</option>
+                                                <option value="">{t("contact.opt_select")}</option>
+                                                <option value="automatizacion">{t("contact.opt_auto")}</option>
+                                                <option value="mantenimiento">{t("contact.opt_maint")}</option>
+                                                <option value="civil">{t("contact.opt_civil")}</option>
+                                                <option value="aguas">{t("contact.opt_water")}</option>
+                                                <option value="otros">{t("contact.opt_other")}</option>
                                             </select>
                                         </div>
                                         {errors.service && <p className="text-red-500 text-xs font-medium">{errors.service.message}</p>}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="urgency">Urgencia</Label>
+                                        <Label htmlFor="urgency">{t("contact.label_urgency")}</Label>
                                         <div className="relative">
                                             <select
                                                 id="urgency"
@@ -153,10 +161,10 @@ export const Contact = () => {
                                                 )}
                                                 {...register("urgency")}
                                             >
-                                                <option value="">Seleccione...</option>
-                                                <option value="normal">Normal</option>
-                                                <option value="alta">Alta</option>
-                                                <option value="critica">Crítica (Parada de Planta)</option>
+                                                <option value="">{t("contact.opt_select")}</option>
+                                                <option value="normal">{t("contact.opt_normal")}</option>
+                                                <option value="alta">{t("contact.opt_high")}</option>
+                                                <option value="critica">{t("contact.opt_critical")}</option>
                                             </select>
                                         </div>
                                         {errors.urgency && <p className="text-red-500 text-xs font-medium">{errors.urgency.message}</p>}
@@ -164,26 +172,26 @@ export const Contact = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="message">Detalles del Requerimiento</Label>
-                                    <Textarea id="message" placeholder="Describa brevemente su necesidad..." rows={4} {...register("message")} className={errors.message ? "border-red-500" : ""} />
+                                    <Label htmlFor="message">{t("contact.label_details")}</Label>
+                                    <Textarea id="message" placeholder={t("contact.ph_details")} rows={4} {...register("message")} className={errors.message ? "border-red-500" : ""} />
                                     {errors.message && <p className="text-red-500 text-xs font-medium">{errors.message.message}</p>}
                                 </div>
 
                                 <Button type="submit" className="w-full h-12 text-base bg-secondary hover:bg-secondary/90 text-white font-bold shadow-lg shadow-orange-600/20" disabled={isSubmitting}>
                                     {isSubmitting ? (
                                         <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Procesando...
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t("contact.btn_sending")}
                                         </>
                                     ) : (
                                         <>
-                                            Enviar Solicitud <Send className="ml-2 h-4 w-4" />
+                                            {t("contact.btn_submit")} <Send className="ml-2 h-4 w-4" />
                                         </>
                                     )}
                                 </Button>
                                 {isSuccess && (
                                     <div className="p-3 bg-green-50 border border-green-200 text-green-700 rounded-md text-sm text-center font-bold flex items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-2">
                                         <CheckCircleIcon />
-                                        ¡Mensaje enviado con éxito!
+                                        {t("contact.success_msg")}
                                     </div>
                                 )}
                             </form>

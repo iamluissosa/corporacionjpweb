@@ -1,47 +1,50 @@
 import { Cpu, Wrench, HardHat, Droplets, Wind, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { motion } from "framer-motion";
-
-const services = [
-    {
-        title: "Mantenimiento de Bandas Aéreas PET",
-        icon: Wind,
-        description: "Servicio preventivo especializado para garantizar la asepsia y eficiencia en líneas de transporte aéreo de botellas.",
-        highlight: true,
-        details: [
-            { title: "Limpieza y Lubricación", text: "Remoción de agentes contaminantes sin dañar la banda." },
-            { title: "Inspección de Componentes", text: "Revisión de guías de cuello, laterales y sistemas de soplado." },
-            { title: "Ajustes Automáticos", text: "Calibración de actuadores eléctricos y pistones neumáticos." },
-            { title: "Lubricación Técnica", text: "Engrasado de precisión cada 750 horas para evitar desgaste." }
-        ]
-    },
-    {
-        title: "Automatización & Control",
-        icon: Cpu,
-        description: "Implementación y programación de PLC (Siemens, Allen-Bradley), sistemas SCADA integrados y Variadores de Frecuencia para control preciso.",
-        highlight: false
-    },
-    {
-        title: "Mantenimiento Industrial",
-        icon: Wrench,
-        description: "Planes de mantenimiento preventivo y correctivo para cintas transportadoras, calderas industriales y sistemas neumáticos complejos.",
-        highlight: false
-    },
-    {
-        title: "Obras Civiles",
-        icon: HardHat,
-        description: "Ejecución de galpones industriales, movimiento de tierras, cimentaciones y sistemas de iluminación técnica profesional.",
-        highlight: false
-    },
-    {
-        title: "Aguas & Servicios",
-        icon: Droplets,
-        description: "Diseño, instalación y mantenimiento de plantas de tratamiento de aguas, así como perforación y gestión de pozos profundos.",
-        highlight: false
-    }
-];
+import { useTranslation } from "react-i18next";
 
 export const Services = () => {
+    const { t } = useTranslation();
+
+    const services = [
+        {
+            title: t("services.pet_title"),
+            icon: Wind,
+            description: t("services.pet_desc"),
+            highlight: true,
+            details: [
+                { title: t("services.pet_detail1_title"), text: t("services.pet_detail1_text") },
+                { title: t("services.pet_detail2_title"), text: t("services.pet_detail2_text") },
+                { title: t("services.pet_detail3_title"), text: t("services.pet_detail3_text") },
+                { title: t("services.pet_detail4_title"), text: t("services.pet_detail4_text") }
+            ]
+        },
+        {
+            title: t("services.auto_title"),
+            icon: Cpu,
+            description: t("services.auto_desc"),
+            highlight: false
+        },
+        {
+            title: t("services.maint_title"),
+            icon: Wrench,
+            description: t("services.maint_desc"),
+            highlight: false
+        },
+        {
+            title: t("services.civil_title"),
+            icon: HardHat,
+            description: t("services.civil_desc"),
+            highlight: false
+        },
+        {
+            title: t("services.water_title"),
+            icon: Droplets,
+            description: t("services.water_desc"),
+            highlight: false
+        }
+    ];
+
     return (
         <section id="services" className="py-24 bg-white relative overflow-hidden">
             {/* Background Decoration */}
@@ -49,10 +52,10 @@ export const Services = () => {
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm">Nuestras Soluciones</span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 mt-2">Capacidades Técnicas</h2>
+                    <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm">{t("services.label")}</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 mt-2">{t("services.title")}</h2>
                     <p className="text-lg text-slate-600">
-                        Abarcamos todas las áreas críticas de su planta con un enfoque multidisciplinario, tecnología de punta y personal certificado.
+                        {t("services.description")}
                     </p>
                 </div>
 
@@ -71,7 +74,7 @@ export const Services = () => {
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <CardTitle className={`text-2xl ${service.highlight ? "text-white" : "text-slate-900"}`}>{service.title}</CardTitle>
-                                        {service.highlight && <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider w-fit border border-blue-500/30">Nuevo Servicio</span>}
+                                        {service.highlight && <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider w-fit border border-blue-500/30">{t("services.new_badge")}</span>}
                                     </div>
                                 </CardHeader>
                                 <CardContent className="flex-grow">

@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 export const Footer = () => {
+    const { t } = useTranslation();
+
     return (
         <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
             <div className="container mx-auto px-4 md:px-6">
@@ -6,27 +10,27 @@ export const Footer = () => {
                     <div className="col-span-1 md:col-span-2 space-y-4">
                         <a href="#" className="inline-block group">
                             <span className="text-2xl font-bold tracking-tighter text-white group-hover:opacity-90 transition-opacity">
-                                Corporacion <span className="text-primary">JP</span>
+                                {t("brand_prefix", { defaultValue: "Corporacion" })} <span className="text-primary">{t("brand_suffix", { defaultValue: "JP" })}</span>
                             </span>
                         </a>
                         <p className="max-w-md text-sm leading-relaxed text-slate-400">
-                            Empresa líder en soluciones industriales integrales para la Venezuela productiva. Especialistas en ingeniería, automatización, obras civiles y mantenimiento de clase mundial.
+                            {t("footer.description")}
                         </p>
                     </div>
 
                     <div>
-                        <h3 className="text-white font-bold mb-6">Enlaces Rápidos</h3>
+                        <h3 className="text-white font-bold mb-6">{t("footer.quick_links")}</h3>
                         <ul className="space-y-3 text-sm">
-                            <li><a href="#hero" className="hover:text-primary transition-colors">Inicio</a></li>
-                            <li><a href="#about" className="hover:text-primary transition-colors">Sobre Nosotros</a></li>
-                            <li><a href="#services" className="hover:text-primary transition-colors">Servicios</a></li>
-                            <li><a href="#projects" className="hover:text-primary transition-colors">Proyectos</a></li>
-                            <li><a href="#contact" className="hover:text-primary transition-colors">Contacto</a></li>
+                            <li><a href="#hero" className="hover:text-primary transition-colors">{t("navbar.home")}</a></li>
+                            <li><a href="#about" className="hover:text-primary transition-colors">{t("about.title")}</a></li>
+                            <li><a href="#services" className="hover:text-primary transition-colors">{t("navbar.services")}</a></li>
+                            <li><a href="#projects" className="hover:text-primary transition-colors">{t("navbar.projects")}</a></li>
+                            <li><a href="#contact" className="hover:text-primary transition-colors">{t("navbar.contact")}</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="text-white font-bold mb-6">Contacto</h3>
+                        <h3 className="text-white font-bold mb-6">{t("footer.contact_title")}</h3>
                         <ul className="space-y-4 text-sm">
                             <li className="flex items-start gap-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 text-primary"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
@@ -45,10 +49,10 @@ export const Footer = () => {
                 </div>
 
                 <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
-                    <p>© 2026 Corporacion JP. Todos los derechos reservados.</p>
+                    <p>© 2026 {t("brand_prefix")} {t("brand_suffix")}. {t("footer.rights")}</p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-white transition-colors">Política de Privacidad</a>
-                        <a href="#" className="hover:text-white transition-colors">Términos de Servicio</a>
+                        <a href="#" className="hover:text-white transition-colors">{t("footer.privacy")}</a>
+                        <a href="#" className="hover:text-white transition-colors">{t("footer.terms")}</a>
                     </div>
                 </div>
             </div>
