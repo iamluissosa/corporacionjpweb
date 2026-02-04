@@ -8,6 +8,8 @@ import { Contact } from "./sections/Contact";
 import { Footer } from "./sections/Footer";
 import { WhatsAppButton } from "./components/WhatsAppButton";
 
+import { Analytics } from "@vercel/analytics/react"
+
 function App() {
   return (
     <main className="font-sans antialiased text-slate-900 bg-white selection:bg-blue-100 selection:text-blue-900">
@@ -20,6 +22,7 @@ function App() {
       <Contact />
       <Footer />
       <WhatsAppButton />
+      <Analytics />
     </main>
   );
 }
