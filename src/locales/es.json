@@ -58,7 +58,9 @@
         "civil_title": "Obras Civiles",
         "civil_desc": "Desarrollamos proyectos de envergadura abarcando la adecuación de terrenos, bancos de ductos y drenajes, seguidos por la construcción de naves industriales y bases de concreto reforzado. Garantizamos superficies y estructuras aptas para procesos productivos exigentes.",
         "water_title": "Ingeniería Hidráulica",
-        "water_desc": "Optimizamos la gestión del recurso hídrico en procesos industriales a través de soluciones de ingeniería avanzada. Nos especializamos en el diseño, instalación y mantenimiento de sistemas de bombeo, tratamiento y conducción de fluidos, garantizando la continuidad operativa y la máxima eficiencia en cada infraestructura. Nuestro enfoque técnico asegura sistemas robustos, confiables y adaptados a las exigencias térmicas y mecánicas de su planta."
+        "water_desc": "Optimizamos la gestión del recurso hídrico en procesos industriales a través de soluciones de ingeniería avanzada. Nos especializamos en el diseño, instalación y mantenimiento de sistemas de bombeo, tratamiento y conducción de fluidos, garantizando la continuidad operativa y la máxima eficiencia en cada infraestructura. Nuestro enfoque técnico asegura sistemas robustos, confiables y adaptados a las exigencias térmicas y mecánicas de su planta.",
+        "elec_title": "Ingeniería Eléctrica y Potencia",
+        "elec_desc": "Diseño y ejecución de proyectos en media y baja tensión. Nos especializamos en el montaje de subestaciones transformadoras, instalación de acometidas, tableros de distribución y Centros de Control de Motores (CCM). Garantizamos sistemas de iluminación industrial y redes de puesta a tierra certificadas."
     },
     "faq": {
         "title": "Preguntas Frecuentes",
@@ -93,6 +95,7 @@
         "opt_maint": "Mantenimiento Industrial",
         "opt_civil": "Obras Civiles",
         "opt_water": "Ingeniería Hidráulica",
+        "opt_elec": "Ingeniería Eléctrica",
         "opt_other": "Otros",
         "label_urgency": "Urgencia",
         "opt_normal": "Normal",

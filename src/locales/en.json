@@ -58,7 +58,9 @@
         "civil_title": "Civil Works",
         "civil_desc": "We develop large-scale projects covering land preparation, duct banks, and drainage, followed by the construction of industrial warehouses and reinforced concrete bases. We guarantee surfaces and structures suitable for demanding production processes.",
         "water_title": "Hydraulic Engineering",
-        "water_desc": "We optimize water resource management in industrial processes through advanced engineering solutions. We specialize in the design, installation, and maintenance of pumping, treatment, and fluid systems, ensuring operational continuity and maximum efficiency in every infrastructure. Our technical approach ensures robust, reliable systems adapted to the thermal and mechanical demands of your plant."
+        "water_desc": "We optimize water resource management in industrial processes through advanced engineering solutions. We specialize in the design, installation, and maintenance of pumping, treatment, and fluid systems, ensuring operational continuity and maximum efficiency in every infrastructure. Our technical approach ensures robust, reliable systems adapted to the thermal and mechanical demands of your plant.",
+        "elec_title": "Electrical & Power Engineering",
+        "elec_desc": "Design and execution of medium and low voltage projects. We specialize in the assembly of transformer substations, installation of service entrances, distribution panels, and Motor Control Centers (MCC). We guarantee industrial lighting systems and certified grounding networks."
     },
     "faq": {
         "title": "Frequently Asked Questions",
@@ -93,6 +95,7 @@
         "opt_maint": "Industrial Maintenance",
         "opt_civil": "Civil Works",
         "opt_water": "Hydraulic Engineering",
+        "opt_elec": "Electrical Engineering",
         "opt_other": "Others",
         "label_urgency": "Urgency",
         "opt_normal": "Normal",

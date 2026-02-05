@@ -1,4 +1,4 @@
-import { Cpu, Wrench, HardHat, Droplets, Wind, CheckCircle2 } from "lucide-react";
+import { Cpu, Wrench, HardHat, Droplets, Wind, CheckCircle2, Zap } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -41,6 +41,12 @@ export const Services = () => {
             title: t("services.water_title"),
             icon: Droplets,
             description: t("services.water_desc"),
+            highlight: false
+        },
+        {
+            title: t("services.elec_title"),
+            icon: Zap,
+            description: t("services.elec_desc"),
             highlight: false
         }
     ];

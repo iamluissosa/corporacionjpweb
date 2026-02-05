@@ -171,6 +171,7 @@ export const Contact = () => {
                                                 <option value="mantenimiento">{t("contact.opt_maint")}</option>
                                                 <option value="civil">{t("contact.opt_civil")}</option>
                                                 <option value="aguas">{t("contact.opt_water")}</option>
+                                                <option value="electrica">{t("contact.opt_elec")}</option>
                                                 <option value="otros">{t("contact.opt_other")}</option>
                                             </select>
                                         </div>
