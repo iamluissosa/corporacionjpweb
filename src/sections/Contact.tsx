@@ -116,7 +116,7 @@ export const Contact = () => {
                                 </div>
                                 <div>
                                     <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">{t("contact.visit_label")}</p>
-                                    <p className="text-lg font-medium text-slate-200">Valencia & Maracaibo / Cobertura Nacional</p>
+                                    <p className="text-lg font-medium text-slate-200">Av. Miranda, Montalbán 2042, Carabobo.</p>
                                 </div>
                             </div>
                         </div>
