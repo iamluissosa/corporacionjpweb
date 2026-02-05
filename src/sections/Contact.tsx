@@ -96,7 +96,7 @@ export const Contact = () => {
                                 </div>
                                 <div>
                                     <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">{t("contact.call_label")}</p>
-                                    <p className="text-2xl font-bold font-mono tracking-tight">+58 424-435-5134 <br /> +58 414-407-6726</p>
+                                    <p className="text-2xl font-bold font-mono tracking-tight">+58 424-435-5134 <br /> +58 414-407-6726 <br /> +58 249-798-7679</p>
                                 </div>
                             </div>
 
