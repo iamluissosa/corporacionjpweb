@@ -57,8 +57,8 @@
         "maint_desc": "Preventive and corrective maintenance plans for conveyor belts, industrial boilers and complex pneumatic systems.",
         "civil_title": "Civil Works",
         "civil_desc": "Execution of industrial sheds, earthworks, foundations and professional technical lighting systems.",
-        "water_title": "Water & Services",
-        "water_desc": "Design, installation and maintenance of water treatment plants, as well as drilling and deep well management."
+        "water_title": "Hydraulic Engineering",
+        "water_desc": "We optimize water resource management in industrial processes through advanced engineering solutions. We specialize in the design, installation, and maintenance of pumping, treatment, and fluid systems, ensuring operational continuity and maximum efficiency in every infrastructure. Our technical approach ensures robust, reliable systems adapted to the thermal and mechanical demands of your plant."
     },
     "faq": {
         "title": "Frequently Asked Questions",
@@ -92,7 +92,7 @@
         "opt_auto": "Automation & Control",
         "opt_maint": "Industrial Maintenance",
         "opt_civil": "Civil Works",
-        "opt_water": "Water & Services",
+        "opt_water": "Hydraulic Engineering",
         "opt_other": "Others",
         "label_urgency": "Urgency",
         "opt_normal": "Normal",

@@ -57,8 +57,8 @@
         "maint_desc": "Planes de mantenimiento preventivo y correctivo para cintas transportadoras, calderas industriales y sistemas neumáticos complejos.",
         "civil_title": "Obras Civiles",
         "civil_desc": "Ejecución de galpones industriales, movimiento de tierras, cimentaciones y sistemas de iluminación técnica profesional.",
-        "water_title": "Aguas & Servicios",
-        "water_desc": "Diseño, instalación y mantenimiento de plantas de tratamiento de aguas, así como perforación y gestión de pozos profundos."
+        "water_title": "Ingeniería Hidráulica",
+        "water_desc": "Optimizamos la gestión del recurso hídrico en procesos industriales a través de soluciones de ingeniería avanzada. Nos especializamos en el diseño, instalación y mantenimiento de sistemas de bombeo, tratamiento y conducción de fluidos, garantizando la continuidad operativa y la máxima eficiencia en cada infraestructura. Nuestro enfoque técnico asegura sistemas robustos, confiables y adaptados a las exigencias térmicas y mecánicas de su planta."
     },
     "faq": {
         "title": "Preguntas Frecuentes",
@@ -92,7 +92,7 @@
         "opt_auto": "Automatización & Control",
         "opt_maint": "Mantenimiento Industrial",
         "opt_civil": "Obras Civiles",
-        "opt_water": "Aguas & Servicios",
+        "opt_water": "Ingeniería Hidráulica",
         "opt_other": "Otros",
         "label_urgency": "Urgencia",
         "opt_normal": "Normal",
