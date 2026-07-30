@@ -5,7 +5,7 @@ export const Allies = () => {
     const { t } = useTranslation();
 
     const clients = [
-        "Protinal", "Alpla", "Coca-Cola FEMSA", "Firestone", "Unilever", "Alimentos Merú", "Embutidos Zeus"
+        "Protinal", "Alpla", "Coca-Cola FEMSA", "Firestone", "Unilever", "Tubrica", "Alimentos Merú", "Embutidos Zeus"
     ];
 
     return (
