@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Loader2, Send, Phone, Mail, MapPin } from "lucide-react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -15,6 +16,11 @@ export const Contact = () => {
     const { t } = useTranslation();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const [captchaError, setCaptchaError] = useState<string | null>(null);
+    const turnstileRef = useRef<TurnstileInstance>(null);
+
+    const turnstileSiteKey = import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || "0x4AAAAAAFV5jhBsHZTlCVvx";
 
     // Schema needs to be re-created or use translation keys if we want validation messages translated dynamically.
     // For simplicity, we keep validation messages static or we can inject them if needed. 
@@ -39,14 +45,27 @@ export const Contact = () => {
     });
 
     const onSubmit = async (data: FormValues) => {
+        if (!captchaToken && turnstileSiteKey) {
+            setCaptchaError("Por favor completa la verificación de seguridad.");
+            return;
+        }
+
+        setCaptchaError(null);
         setIsSubmitting(true);
         try {
+            const honeypotVal = (document.getElementById("hp_check") as HTMLInputElement)?.value || "";
+            const payload = {
+                ...data,
+                captchaToken,
+                _hp: honeypotVal,
+            };
+
             const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(payload),
             });
 
             // Validar que la respuesta sea JSON (si es HTML, significa que falló el enrutamiento de Vercel)
@@ -65,11 +84,15 @@ export const Contact = () => {
 
             setIsSuccess(true);
             reset();
+            turnstileRef.current?.reset();
+            setCaptchaToken(null);
             setTimeout(() => setIsSuccess(false), 5000);
         } catch (error: any) {
             console.error(error);
             // Alertar con el mensaje técnico para facilitar la depuración
             alert(`Hubo un error enviando el mensaje: ${error.message || "Intente de nuevo."}`);
+            turnstileRef.current?.reset();
+            setCaptchaToken(null);
         } finally {
             setIsSubmitting(false);
         }
@@ -202,6 +225,41 @@ export const Contact = () => {
                                     <Label htmlFor="message">{t("contact.label_details")}</Label>
                                     <Textarea id="message" placeholder={t("contact.ph_details")} rows={4} {...register("message")} className={errors.message ? "border-red-500" : ""} />
                                     {errors.message && <p className="text-red-500 text-xs font-medium">{errors.message.message}</p>}
+                                </div>
+
+                                {/* Campo Honeypot invisible para protección contra bots básicos */}
+                                <div className="hidden" aria-hidden="true">
+                                    <input
+                                        type="text"
+                                        id="hp_check"
+                                        name="_hp_security_check"
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                    />
+                                </div>
+
+                                {/* Widget Cloudflare Turnstile */}
+                                <div className="my-2 flex flex-col items-center justify-center">
+                                    <Turnstile
+                                        ref={turnstileRef}
+                                        siteKey={turnstileSiteKey}
+                                        onSuccess={(token) => {
+                                            setCaptchaToken(token);
+                                            setCaptchaError(null);
+                                        }}
+                                        onExpire={() => setCaptchaToken(null)}
+                                        onError={() => {
+                                            setCaptchaToken(null);
+                                            setCaptchaError("Error en la verificación de seguridad.");
+                                        }}
+                                        options={{
+                                            theme: "light",
+                                            size: "normal",
+                                        }}
+                                    />
+                                    {captchaError && (
+                                        <p className="text-red-500 text-xs font-medium mt-1">{captchaError}</p>
+                                    )}
                                 </div>
 
                                 <Button type="submit" className="w-full h-12 text-base bg-secondary hover:bg-secondary/90 text-white font-bold shadow-lg shadow-orange-600/20" disabled={isSubmitting}>

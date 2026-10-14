@@ -2,6 +2,37 @@ import { Resend } from 'resend';
 
 // Inicializar Resend con la API Key configurada en las variables de entorno de Vercel
 const resend = new Resend(process.env.RESEND_API_KEY);
+const TURNSTILE_SECRET = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+
+async function verifyTurnstile(token: string, remoteip?: string): Promise<boolean> {
+    if (!TURNSTILE_SECRET) {
+        console.warn('CLOUDFLARE_TURNSTILE_SECRET_KEY no configurada. Permitir paso en desarrollo.');
+        return true;
+    }
+
+    try {
+        const formData = new URLSearchParams();
+        formData.append('secret', TURNSTILE_SECRET);
+        formData.append('response', token);
+        if (remoteip) {
+            formData.append('remoteip', remoteip);
+        }
+
+        const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+        const outcome: any = await response.json();
+        return Boolean(outcome.success);
+    } catch (err) {
+        console.error('Error validando token con Cloudflare:', err);
+        return false;
+    }
+}
 
 // Handler compatible con entornos Node.js en Vercel
 export default async function handler(req: any, res: any) {
@@ -21,9 +52,28 @@ export default async function handler(req: any, res: any) {
     }
 
     // 4. Extraer datos del cuerpo de la petición
-    const { name, email, company, phone, service, urgency, message } = req.body;
+    const { name, email, company, phone, service, urgency, message, captchaToken, _hp } = req.body;
 
-    // 5. Validaciones básicas
+    // 5. Filtro Honeypot: Si un bot llenó el campo oculto, descartar silenciosamente
+    if (_hp) {
+        console.warn('Bot detectado por Honeypot. Descartando envío.');
+        return res.status(200).json({ success: true, message: 'Message received' });
+    }
+
+    // 6. Validar token de seguridad (Captcha)
+    if (!captchaToken && TURNSTILE_SECRET) {
+        return res.status(400).json({ error: 'La verificación de seguridad es obligatoria.' });
+    }
+
+    if (captchaToken) {
+        const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim();
+        const isHuman = await verifyTurnstile(captchaToken, clientIp);
+        if (!isHuman) {
+            return res.status(403).json({ error: 'Verificación de seguridad fallida. Por favor, reintenta.' });
+        }
+    }
+
+    // 7. Validaciones básicas de campos de contacto
     if (!name || !email || !message) {
         return res.status(400).json({ error: 'Faltan campos requeridos' });
     }
