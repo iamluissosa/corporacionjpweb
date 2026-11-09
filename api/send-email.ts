@@ -82,7 +82,7 @@ export default async function handler(req: any, res: any) {
         // 6. Enviar el correo usando Resend SDK
         const data = await resend.emails.send({
             from: 'Corporacion JP Web <web@corpjp.com>', // Remitente diferenciado
-            to: ['luis.sosa@corpjp.com'], // Destinatario final
+            to: [process.env.CONTACT_RECIPIENT_EMAIL || 'contacto@corpjp.com'], // Destinatario final
             replyTo: email, // Permitir responder directamente al cliente
             subject: `Nueva Solicitud: ${service} - ${company || name}`,
             // Plantilla HTML profesional

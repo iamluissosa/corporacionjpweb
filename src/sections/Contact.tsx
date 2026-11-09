@@ -129,7 +129,7 @@ export const Contact = () => {
                                 </div>
                                 <div>
                                     <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">{t("contact.email_label")}</p>
-                                    <a href="mailto:luis.sosa@corpjp.com" className="text-2xl font-bold tracking-tight hover:text-orange-400 transition-colors">luis.sosa@corpjp.com</a>
+                                    <a href="mailto:contacto@corpjp.com" className="text-2xl font-bold tracking-tight hover:text-orange-400 transition-colors">contacto@corpjp.com</a>
                                 </div>
                             </div>
 
